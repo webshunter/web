@@ -1,0 +1,45 @@
+{
+    "h1" : {
+        "text" : "Invoice",
+        "style" : {
+            "text-align" : "center",
+            "font-weight" : "400",
+            "font-size" : "24px"
+        }
+    },
+    "table" : {
+        "theme" : "line",
+        "head" : [
+            {
+                "text": "No",
+                "style": { "width": "50px", "text-align" : "center" }
+            }
+            ,{
+                "text": "Nama",
+                "style": { "text-align" : "left" }
+            }
+        ]
+        ,"body" : [
+            [
+                {
+                    "text": "1",
+                    "style": { "text-align" : "center" }
+                }
+                ,{
+                    "text": "John",
+                    "style": { "text-align" : "left" }
+                }
+            ]
+            ,[
+                {
+                    "text": "2",
+                    "style": { "text-align" : "center" }
+                }
+                ,{
+                    "text": "Buddy",
+                    "style": { "text-align" : "left" }
+                }
+            ]
+        ]
+    }
+}

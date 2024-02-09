@@ -690,12 +690,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "6edb9350a0d13be5cea52718280e0025d3957895"
+                "reference": "80e0fecacff2eb2469fb543ea2ce55130ec8d4ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/6edb9350a0d13be5cea52718280e0025d3957895",
-                "reference": "6edb9350a0d13be5cea52718280e0025d3957895",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/80e0fecacff2eb2469fb543ea2ce55130ec8d4ca",
+                "reference": "80e0fecacff2eb2469fb543ea2ce55130ec8d4ca",
                 "shasum": ""
             },
             "require": {
@@ -753,7 +753,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2024-01-29T14:56:21+00:00"
+            "time": "2024-02-08T15:54:49+00:00"
         },
         {
             "name": "illuminate/view",

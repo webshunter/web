@@ -2,7 +2,6 @@
 namespace Gugusd999\Web;
 use Jenssegers\Blade\Blade;
 
-
 class View {
 
     public static function render($name = '', $arg = []){

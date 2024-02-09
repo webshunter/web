@@ -1,6 +1,7 @@
 <?php
 namespace Gugusd999\Web;
-use Gugusd999\Web\View;
+use Gugusd999\Web\Text;
+use Gugusd999\Web\Files;
 
 class Route {
     private static $route = [];
@@ -10,7 +11,6 @@ class Route {
     private static $datamidleware = [];
 
     function __construct($base = "./", $url_base = "") {
-        
         ini_set('display_errors', 0);
         $this->setEnv('SETUP_PATH', $base);
         $this->setEnv('PATH', $url_base);
@@ -21,17 +21,40 @@ class Route {
         }
         $this->setEnv('ROOT', dirname($_SERVER['DOCUMENT_ROOT']));
         $this->setEnv('APP', $_SERVER['DOCUMENT_ROOT']);
+        $this->setEnv('IP', $this->get_client_ip());
+        if(file_exists(SETUP_PATH.'.env')){
+            $getenv = parse_ini_file(SETUP_PATH.'.env');
+            foreach ($getenv as $key => $value) {
+                $this->setEnv($key, $value);
+            }
+        }
+    }
+
+    private function get_client_ip() {
+        $ipaddress = '';
+        if (getenv('HTTP_CLIENT_IP'))
+            $ipaddress = getenv('HTTP_CLIENT_IP');
+        else if(getenv('HTTP_X_FORWARDED_FOR'))
+            $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+        else if(getenv('HTTP_X_FORWARDED'))
+            $ipaddress = getenv('HTTP_X_FORWARDED');
+        else if(getenv('HTTP_FORWARDED_FOR'))
+            $ipaddress = getenv('HTTP_FORWARDED_FOR');
+        else if(getenv('HTTP_FORWARDED'))
+        $ipaddress = getenv('HTTP_FORWARDED');
+        else if(getenv('REMOTE_ADDR'))
+            $ipaddress = getenv('REMOTE_ADDR');
+        else
+            $ipaddress = 'UNKNOWN';
+        return $ipaddress;
     }
 
     private function setEnv($name="", $val = ""){
         if(!defined($name)){
+            $_ENV[$name] = $val;
             define($name, $val);
         }
-    } 
-
-    protected function view($name="", $arg=[]){
-        View::render($name, $arg);
-    } 
+    }  
 
     // midleware setup
     public function middleware(...$arg){
