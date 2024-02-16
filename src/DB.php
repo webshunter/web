@@ -193,28 +193,22 @@ class DB {
     }
 
     // ambuil data secara objek
+    
     public static function query_result_object($e = '')
     {
         $conn = (new self)->getDepartment();
-        $query = mysqli_query($conn, $e);
         $box = [];
-        if($query != false){
-            while ($data = mysqli_fetch_object($query) ) {
-                $box[] = $data;
+        try{
+            $query = mysqli_query($conn, $e);
+            if($query != false){
+                while ($data = mysqli_fetch_object($query) ) {
+                    $box[] = $data;
+                }
             }
+        } catch (\Throwable $e) {
+            $box['error'] = $e->getMessage();
         }
         return $box;
-    }
-
-    public static function query_result_object_row($e = '')
-    {
-        $conn = (new self)->getDepartment();
-        $query = mysqli_query($conn, $e);
-        $box = [];
-        while ($data = mysqli_fetch_object($query) ) {
-            $box[] = $data;
-        }
-        return $box[0];
     }
 
     // ambil data secara arrray
