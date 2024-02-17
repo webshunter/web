@@ -55,7 +55,8 @@ class Route {
     }  
 
     // midleware setup
-    public function middleware(...$arg){
+    public function middleware(){
+        $arg = func_get_args();
         if(isset($arg[0])){
             if(is_callable($arg[0])){
                 if(!isset(self::$middleware[self::$activeadd])){
@@ -72,7 +73,8 @@ class Route {
         return $this;
     }
 
-    public function addMidleware(...$arg){
+    public function addMidleware(){
+        $arg = func_get_args();
         if(isset($arg[0]) && isset($arg[1])){
             self::$datamidleware[$arg[0]] = $arg[1];
         }
@@ -86,7 +88,8 @@ class Route {
         return $this;
     }
 
-    public function use(...$arg){
+    public function addUse(){
+        $arg = func_get_args();
         if(isset($arg[0])){
             if(is_string($arg[0])){
                 if(!isset(self::$use[self::$activeadd])){
@@ -98,7 +101,8 @@ class Route {
         return $this;
     }
 
-    public static function session(...$arg){
+    public static function session(){
+        $arg = func_get_args();
         if(isset($arg[0]) && $arg[0] == true){
             defined('SESSION') or die();
             if(files::exist(SETUP_PATH.'session53539'.SESSION) === false){
@@ -115,7 +119,8 @@ class Route {
     }
 
     // add new route
-    public static function add(...$argv){
+    public static function add(){
+        $argv = func_get_args();
         $newRoute = [];
         if(isset($argv[0])){
             if(substr( $argv[0], 0,1) != '/'){
@@ -164,7 +169,8 @@ class Route {
     }
 
     // validation route after call
-    private static function validating(...$argv){
+    private static function validating(){
+        $argv = func_get_args();
         $htmlerror = '<div><img width="250px" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhLS0gVXBsb2FkZWQgdG86IFNWRyBSZXBvLCB3d3cuc3ZncmVwby5jb20sIEdlbmVyYXRvcjogU1ZHIFJlcG8gTWl4ZXIgVG9vbHMgLS0+Cjxzdmcgd2lkdGg9IjgwMHB4IiBoZWlnaHQ9IjgwMHB4IiB2aWV3Qm94PSIwIDAgNjQgNjQiIGRhdGEtbmFtZT0iTGF5ZXIgMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiMxOTA5MzM7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZS8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMTgsNi41QTEuNSwxLjUsMCwxLDAsMTYuNSw1LDEuNSwxLjUsMCwwLDAsMTgsNi41Wm0wLTJhLjUuNSwwLDEsMS0uNS41QS41LjUsMCwwLDEsMTgsNC41WiIvPjxjaXJjbGUgY2xhc3M9ImNscy0xIiBjeD0iMjIiIGN5PSI1IiByPSIxIi8+PGNpcmNsZSBjbGFzcz0iY2xzLTEiIGN4PSIxNCIgY3k9IjUiIHI9IjEiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0zMiwxOC41QTE0LjUsMTQuNSwwLDEsMCw0Ni41LDMzLDE0LjUxLDE0LjUxLDAsMCwwLDMyLDE4LjVabTAsMjdBMTIuNSwxMi41LDAsMSwxLDQ0LjUsMzMsMTIuNTIsMTIuNTIsMCwwLDEsMzIsNDUuNVoiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik02Mi4yLDU2LjU0QTMzLjY5LDMzLjY5LDAsMCwwLDUxLjMyLDQ1LjQzYTIsMiwwLDAsMC0yLjI2LjA5TDQ3LjQ5LDQ0QTE4Ljk1LDE4Ljk1LDAsMCwwLDM1LDE0LjI2VjVhNSw1LDAsMCwwLTUtNUg2QTUsNSwwLDAsMCwxLDVWOWExLDEsMCwwLDAtMSwxdjRhMSwxLDAsMCwwLDEsMXYyYTEsMSwwLDAsMC0xLDF2NGExLDEsMCwwLDAsMSwxVjU5YTUsNSwwLDAsMCw1LDVIMzBhNSw1LDAsMCwwLDUtNVY1MS43NGExOSwxOSwwLDAsMCw5LjEtNC4xbDEuNDIsMS40MmEyLDIsMCwwLDAtLjA5LDIuMjZBMzMuNjksMzMuNjksMCwwLDAsNTYuNTQsNjIuMmwuNjMuNjNhNCw0LDAsMCwwLDUuNjYtNS42NlpNNjAuMTUsNTdsLTEuNTYsMS41N0w1Nyw2MC4xNWMtLjcyLS40Ni0xLjQxLS45NS0yLjA4LTEuNDVsMS44OC0xLjg4YS41LjUsMCwwLDAtLjcxLS43MWwtMiwyYy0uNTItLjQyLTEtLjg2LTEuNTItMS4zMWw0LjE4LTQuMTdBMzIuNDUsMzIuNDUsMCwwLDEsNjAuMTUsNTdaTTQ5LDMzQTE3LDE3LDAsMCwxLDMzLjg5LDQ5Ljg5bC0uNDQsMEMzMyw1MCwzMi40OSw1MCwzMiw1MGExNywxNywwLDAsMSwwLTM0Yy40OSwwLDEsMCwxLjQ1LjA3bC40NCwwQTE3LDE3LDAsMCwxLDQ5LDMzWk02LDJIMzBhMywzLDAsMCwxLDMsMi41SDMwYTQuMzQsNC4zNCwwLDAsMC0zLjM1LDEuNjVBMy40NSwzLjQ1LDAsMCwxLDI0LDcuNUgxMkEzLjQ1LDMuNDUsMCwwLDEsOS4zNSw2LjE1LDQuMzQsNC4zNCwwLDAsMCw2LDQuNUgzLjA1QTMsMywwLDAsMSw2LDJaTTMzLDUydjdhMywzLDAsMCwxLTMsM0g2YTMsMywwLDAsMS0zLTNWNS41SDZBMy40NSwzLjQ1LDAsMCwxLDguNjUsNi44NSw0LjM0LDQuMzQsMCwwLDAsMTIsOC41SDI0YTQuMzQsNC4zNCwwLDAsMCwzLjM1LTEuNjVBMy40NSwzLjQ1LDAsMCwxLDMwLDUuNWgzVjE0bC0xLDBhMTksMTksMCwwLDAtMTYuMzcsOS40MUwxMiwyMC44YTMuNDYsMy40NiwwLDEsMC0uNjMuNzhsMy43OSwyLjdhMTguODcsMTguODcsMCwwLDAsMiwyMC40N0wxMi41NSw0OGEyLjUsMi41LDAsMCwwLTEuMDUsMnYyLjUyYTMuNSwzLjUsMCwxLDAsMSwwVjUwYTEuNDksMS40OSwwLDAsMSwuNjMtMS4yMmw0LjYxLTMuM0ExOC45NCwxOC45NCwwLDAsMCwzMiw1MlpNOSwyMS41QTIuNSwyLjUsMCwxLDEsMTEuNSwxOSwyLjUsMi41LDAsMCwxLDksMjEuNVptMywzMkEyLjUsMi41LDAsMSwxLDkuNSw1NiwyLjUsMi41LDAsMCwxLDEyLDUzLjVabTM0Ljg5LTguNzMsMS40NCwxLjQ0LTIuMTIsMi4xMkw0NC44NCw0N0ExOS4yNiwxOS4yNiwwLDAsMCw0Ni44OSw0NC43N1ptLjI0LDUuNDcsMy4xMi0zLjEyYTMyLjEyLDMyLjEyLDAsMCwxLDUuODUsNC43Nkw1MS44OCw1Ni4xQTMxLjczLDMxLjczLDAsMCwxLDQ3LjEzLDUwLjI0Wk02MS40MSw2MS40MWEyLDIsMCwwLDEtMi44MiwwbDIuODItMi44MmEyLDIsMCwwLDEsMCwyLjgyWiIvPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTMzLjIzLDI1YTEuNTUsMS41NSwwLDAsMC0yLjQ2LDBMMjMuNDQsMzUuNjFBMi4xNiwyLjE2LDAsMCwwLDI1LjIxLDM5SDM4Ljc5YTIuMTYsMi4xNiwwLDAsMCwxLjc3LTMuMzlabTUuNywxMS44OWEuMTUuMTUsMCwwLDEtLjE0LjA5SDI1LjIxYS4xNS4xNSwwLDAsMS0uMTQtLjA5LjE2LjE2LDAsMCwxLDAtLjE2bDYuOTItMTAsNi45MiwxMEEuMTYuMTYsMCwwLDEsMzguOTMsMzYuOTFaIi8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMzIsMjkuNWEuNS41LDAsMCwwLS41LjV2M2EuNS41LDAsMCwwLDEsMFYzMEEuNS41LDAsMCwwLDMyLDI5LjVaIi8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMzIuMTksMzQuNTRhLjUuNSwwLDAsMC0uMzgsMCwuNTMuNTMsMCwwLDAtLjI3LjI3LjQzLjQzLDAsMCwwLDAsLjE5LjQ3LjQ3LDAsMCwwLC4xNS4zNS4zNi4zNiwwLDAsMCwuMTYuMTEuNDcuNDcsMCwwLDAsLjM4LDAsLjM2LjM2LDAsMCwwLC4xNi0uMTEuNDguNDgsMCwwLDAsMC0uN0EuMzYuMzYsMCwwLDAsMzIuMTksMzQuNTRaIi8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNDMuNjUsMTMuMzVhLjQ4LjQ4LDAsMCwwLC43LDBsMi0yYS40OS40OSwwLDEsMC0uNy0uN2wtMiwyQS40OC40OCwwLDAsMCw0My42NSwxMy4zNVoiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik00OC43OCwxMy41NWwtMiwxYS41LjUsMCwwLDAsLjIyLjk1LjU0LjU0LDAsMCwwLC4yMi0uMDVsMi0xYS41LjUsMCwwLDAtLjQ0LS45WiIvPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTQyLjUsMTFWOWEuNS41LDAsMCwwLTEsMHYyYS41LjUsMCwwLDAsMSwwWiIvPjwvc3ZnPg==">
             </img></div>';
         try{
@@ -274,14 +280,16 @@ class Route {
         $countpathurl = count($pathurl);
         
         // cek url base on count path of url and filter it
-        $pathofroot = array_filter($route, function(...$arg) use ($countpathurl, $pathurl) {
+        $pathofroot = array_filter($route, function() use ($countpathurl, $pathurl) {
+            $argv = func_get_args();
             if($arg[0]['totpath'] == $countpathurl){
                 return $arg;
             }
         }, ARRAY_FILTER_USE_BOTH  );
         
         
-        $capable = array_map(function(...$arg) use($pathurl){
+        $capable = array_map(function() use($pathurl){
+            $arg = func_get_args();
             $data = $arg[0];
             $data['compability'] = 0;
             foreach($data['routepath'] as $kk => $root){
@@ -302,7 +310,8 @@ class Route {
         $capable = max(...$rr);
 
         
-        $get = array_map(function(...$arg) use($pathurl){
+        $get = array_map(function() use($pathurl){
+            $arg = func_get_args();
             $data = $arg[0];
             $data['compability'] = 0;
             foreach($data['routepath'] as $kk => $root){
@@ -314,15 +323,18 @@ class Route {
         }, $pathofroot);
         
 
-        $getdata = array_map(function(...$arg){
+        $getdata = array_map(function(){
+            $arg = func_get_args();
             return $arg[0];
-        },array_filter($get, function(...$arg) use ($capable) {
+        },array_filter($get, function() use ($capable) {
+            $arg = func_get_args();
             if($arg[0]['compability'] == $capable && $capable > 1){
                 return $arg[0];
             }
         }));
 
-        function serachParamTrueOrFalse(...$arg){
+        function serachParamTrueOrFalse(){
+            $arg = func_get_args();
             function isparams(...$ssa){
                 $res = false;
                 foreach($ssa[1] as $s){
