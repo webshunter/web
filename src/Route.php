@@ -18,7 +18,8 @@ class Route {
         $this->setEnv('ASSET', $url_base);
         if(isset($_SERVER["REQUEST_URI"]))
         {
-            $this->setEnv('URL', urldecode( explode('?',$_SERVER["REQUEST_URI"])[0] ));
+            $url = urldecode( explode('?',$_SERVER["REQUEST_URI"])[0]);
+            $this->setEnv('URL',  $url);
         }
         $this->setEnv('ROOT', dirname($_SERVER['DOCUMENT_ROOT']));
         $this->setEnv('APP', $_SERVER['DOCUMENT_ROOT']);
@@ -124,6 +125,7 @@ class Route {
         $newRoute = [];
         if(isset($argv[0])){
             if(substr( $argv[0], 0,1) != '/'){
+                $r = PATH."/".$argv[0];
                 $newRoute["url"] = PATH."/".$argv[0];
             }else{
                 $newRoute["url"] = PATH.$argv[0];
@@ -269,7 +271,12 @@ class Route {
         // cari data yang sesuai dengan URL
         // cek url;
         foreach($route as $key => $routedata){
-            if($routedata['url'] == URL){
+            $arrayurl = explode("/", $routedata['url']);
+            $lasturl = array_pop($arrayurl);
+            if($lasturl != ""){
+                $arrayurl[] = $lasturl; 
+            }
+            if(join("/",$arrayurl) == URL){
                 (new self)->validating($key);
                 die();
             }
