@@ -2,6 +2,7 @@
 namespace Gugusd999\Web;
 use Gugusd999\Web\Text;
 use Gugusd999\Web\Files;
+use Gugusd999\Web\Environtment as Env;
 
 class Route {
     private static $route = [];
@@ -23,10 +24,7 @@ class Route {
         $this->setEnv('APP', $_SERVER['DOCUMENT_ROOT']);
         $this->setEnv('IP', $this->get_client_ip());
         if(file_exists(SETUP_PATH.'.env')){
-            $getenv = parse_ini_file(SETUP_PATH.'.env');
-            foreach ($getenv as $key => $value) {
-                $this->setEnv($key, $value);
-            }
+            $env = new Env(SETUP_PATH.'.env');
         }
     }
 
