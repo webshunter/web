@@ -1,4 +1,5 @@
 <?php
+namespace Gugusd999\Web;
 
 class HeaderContent {
     public static function set($contentType="") {
