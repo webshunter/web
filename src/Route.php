@@ -19,7 +19,12 @@ class Route {
         if(isset($_SERVER["REQUEST_URI"]))
         {
             $url = urldecode( explode('?',$_SERVER["REQUEST_URI"])[0]);
-            $this->setEnv('URL',  $url);
+            $arrayurl = explode("/", $url);
+            $lasturl = array_pop($arrayurl);
+            if($lasturl != ""){
+                $arrayurl[] = $lasturl; 
+            }
+            $this->setEnv('URL',  join("/",$arrayurl));
         }
         $this->setEnv('ROOT', dirname($_SERVER['DOCUMENT_ROOT']));
         $this->setEnv('APP', $_SERVER['DOCUMENT_ROOT']);
