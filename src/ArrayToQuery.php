@@ -1,5 +1,5 @@
 <?php
-namespace Gugusd999\DbQueryHelper;
+namespace Gugusd999\Web;
 
 class ArrayToQuery {
     public static function insert($arrayData = [], $table = 'test', $wht = '') {
