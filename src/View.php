@@ -21,7 +21,7 @@ class View {
         if(!file_exists($chache)){
             mkdir($chache, 777,true);
         }
-        $blade = new Blade(SETUP_PATH.$pathView.'', 'cache');
+        $blade = new Blade($pathView.'', 'cache');
         $bld = $blade->make($name, $arg)->render();
         return $bld;
     }
