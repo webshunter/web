@@ -205,7 +205,8 @@ class Route {
                                 if(is_callable($midlecall)){
                                     $midlecall();
                                 }else{
-                                    self::$datamidleware[$midlecall]();
+                                    $cl = self::$datamidleware[$midlecall];
+                                    $cl();
                                 }
                             }
                         }
