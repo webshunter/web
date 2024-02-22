@@ -21,36 +21,36 @@ class HtmlParser{
 
     private function h1($data=[]){
         $h1 = "<h1";
-        $h1 .= " style=\"".$this->styles($data["style"])."\" ";
+        $h1 .= " style=\"".$this->styles(isset($data["style"])?$data["style"]:[])."\" ";
         $h1 .= ">";
-        $h1 .= $this->cekdata( $data["text"] );
+        $h1 .= $this->cekdata( isset($data["text"])?$data["text"]:"" );
         $h1 .= "</h1>";
         return $h1;
     }
 
     private function p($data=[]){
         $text = "<p";
-        $text .= " style=\"".$this->styles($data["style"])."\" ";
+        $text .= " style=\"".$this->styles(isset($data["style"])?$data["style"]:[])."\" ";
         $text .= ">";
-        $text .= $this->cekdata( $data["text"] );
+        $text .= $this->cekdata( isset($data["text"])?$data["text"]:"" );
         $text .= "</p>";
         return $text;
     }
 
     private function i($data=[]){
         $text = "<i";
-        $text .= " style=\"".$this->styles($data["style"])."\" ";
+        $text .= " style=\"".$this->styles(isset($data["style"])?$data["style"]:[])."\" ";
         $text .= ">";
-        $text .= $this->cekdata( $data["text"] );
+        $text .= $this->cekdata( isset($data["text"])?$data["text"]:"" );
         $text .= "</i>";
         return $text;
     }
 
     private function u($data=[]){
         $text = "<u";
-        $text .= " style=\"".$this->styles($data["style"])."\" ";
+        $text .= " style=\"".$this->styles(isset($data["style"])?$data["style"]:[])."\" ";
         $text .= ">";
-        $text .= $this->cekdata( $data["text"] );
+        $text .= $this->cekdata( isset($data["text"])?$data["text"]:"" );
         $text .= "</u>";
         return $text;
     }
@@ -64,11 +64,11 @@ class HtmlParser{
             $html = [];
             foreach ($data as $key => $value) {
                 $d = "<td";
-                $d .= $value["colspan"] ? " colspan='".$value["colspan"]."' " : "";
-                $d .= $value["rowspan"] ? " rowspan='".$value["rowspan"]."' " : "";
+                $d .= isset($value["colspan"]) ? " colspan='".$value["colspan"]."' " : "";
+                $d .= isset($value["rowspan"]) ? " rowspan='".$value["rowspan"]."' " : "";
                 $d .= " style=\"".$this->styles($value["style"])."\" ";
                 $d .= ">";
-                $d .= $this->cekdata($value["text"]);
+                $d .= $this->cekdata(isset($value["text"])? $value["text"]:"");
                 $d .= "</td>";
                 $html[] = $d;
             }
@@ -96,10 +96,10 @@ class HtmlParser{
             $table .= isset($data["theme"]) ? " class=\"".$data["theme"]."\"":"";
             $table .= ">";
             $table .= "<thead>";
-            $table .= $this->thead($data["head"]);
+            $table .= $this->thead(isset($data["head"])?$data["head"]:"");
             $table .= "</thead>";
             $table .= "<tbody>";
-            $table .= $this->tbody($data["body"]);
+            $table .= $this->tbody(isset($data["body"])? $data["body"]:"");
             $table .= "</tbody>";
             $table .= "</table>";
             return $table;
