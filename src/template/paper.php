@@ -290,7 +290,9 @@ function renderHtml($tag="", $data=[]){
     <?php foreach($setup->section as $section) : ?>
         <section class="sheet padding-10mm">
             <?php foreach($section as $key => $datasection) :?>
-                <?= renderHtml($key, $datasection) ?>
+                <?php foreach($datasection as $key1 => $datasection1) :?>
+                    <?= renderHtml($key1, $datasection1) ?>
+                <?php endforeach; ?>
             <?php endforeach; ?>
         </section>
     <?php endforeach; ?>
