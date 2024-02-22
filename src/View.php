@@ -15,4 +15,15 @@ class View {
         echo $bld;
     }
     
+    public static function get($path="",$name = '', $arg = []){
+        $pathView = $path;
+        $chache =$path.'/chache';
+        if(!file_exists($chache)){
+            mkdir($chache, 777,true);
+        }
+        $blade = new Blade(SETUP_PATH.$pathView.'', 'cache');
+        $bld = $blade->make($name, $arg)->render();
+        return $bld;
+    }
+    
 }
