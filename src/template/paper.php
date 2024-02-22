@@ -64,6 +64,8 @@ class HtmlParser{
             $html = [];
             foreach ($data as $key => $value) {
                 $d = "<td";
+                $d .= $value["colspan"] ? " colspan='".$value["colspan"]."' " : "";
+                $d .= $value["rowspan"] ? " rowspan='".$value["rowspan"]."' " : "";
                 $d .= " style=\"".$this->styles($value["style"])."\" ";
                 $d .= ">";
                 $d .= $this->cekdata($value["text"]);
