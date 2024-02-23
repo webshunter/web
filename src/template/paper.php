@@ -127,6 +127,7 @@ function renderHtml($tag="", $data=[]){
     <meta charset="utf-8">
     <title><?=$setup->title?></title>
     <link rel="stylesheet" type="text/css" href="/usp/assets/fonts/simple-line-icons/style.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         @page { margin: 0 }
         body { margin: 0 }
@@ -252,6 +253,23 @@ function renderHtml($tag="", $data=[]){
             bottom: 20px;
             z-index: 999;
         }
+        .back{
+            position: fixed;
+            display: inline-block;
+            right: 20px;
+            padding: 12px 10px;
+            box-shadow: 0 0 20px #ddd;
+            width: 45px;
+            cursor: pointer;
+            color: white;
+            outline: none;
+            border: none;
+            border: none;
+            border-radius: 10px;
+            background: green;
+            bottom: 80px;
+            z-index: 999;
+        }
         h1{
             font-size:14px;
         }
@@ -288,6 +306,7 @@ function renderHtml($tag="", $data=[]){
     </style>
 </head>
 <body class="A4 <?=$setup->layout?>">
+    <button class="back" onclick="window.history.back()"><i class="fa-solid fa-rotate-left"></i></button>
     <button class="print" onclick="window.print()"><i class="gg-printer"></i></button>
     <?php foreach($setup->section as $section) : ?>
         <section class="sheet padding-10mm">
