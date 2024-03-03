@@ -1,5 +1,6 @@
 <?php
 namespace Gugusd999\Web;
+
 class HPass{
     public static function encrypt($plaintext="", $password="asds") {
         $iv_length = openssl_cipher_iv_length($cipher="AES-256-CBC");
